@@ -11,7 +11,7 @@ if (user == null) {
 	Message m = new Message("**Login First...", "error", "alert-danger bg-#eb0d0d pl-1 mt-1");
 	session.setAttribute("msg", m);
 
-	response.sendRedirect("login_page.jsp");
+	response.sendRedirect("index.jsp");
 	//session.removeAttribute("msg");
 } else {
 %>
@@ -30,7 +30,7 @@ if (user == null) {
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="css/NewFile.css" rel="stylesheet">
+<link href="css_files/NewFile.css" rel="stylesheet">
 </head>
 <body>
 	<!-- profile page nave bar -->
@@ -53,7 +53,7 @@ if (user == null) {
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#"><span
 						class="fa fa-map-marker"></span> Location</a></li>
-				<!-- drop down -->
+
 
 				<li class="nav-item"><a class="nav-link" href="#"><span
 						class="fa fa-globe"></span> about us</a></li>
@@ -130,9 +130,10 @@ if (user == null) {
 					</div>
 					<div class="modal-body">Click ok for Logout !</div>
 					<div class="modal-footer">
+
+						<button type="submit" class="btn btn-primary">OK</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">CANCLE</button>
-						<button type="submit" class="btn btn-primary">LOGOUT</button>
 					</div>
 				</div>
 			</div>
@@ -143,7 +144,7 @@ if (user == null) {
 	<!-- start profile model -->
 
 
-
+<%@include file="addpost.jsp"%>
 	<!-- Modal -->
 	<div class="modal fade " id="exampleModal2" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -288,92 +289,9 @@ if (user == null) {
 
 
 	<!-- add post model -->
- <%@include file="addpost.jsp" %> 
-<!-- 
-
-	<div class="modal fade" id="add_post_model" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title" id="exampleModalLabel">Provide post
-						details..</h3>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="add_post" id="add_form" enctype="multipart/form-data"
-						method="post">
-						<div class="form-group">
-							<p role="button" class="tooltip-test fa fa-question-circle"
-								title="Tooltip" style="float: right; margin-bottom: 0px"></p>
-							<select class="form-control" name="cat_name">
-
-								<option selected="selected" disabled="disabled">--select
-									category--</option>
-								<option>java</option>
-								<option>python</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<h6>Enter Post Title :</h6>
-							<input type="text" name="post_title" class="form-control"
-								placeholder="Enter here .......">
-						</div>
-						<div class="form-group">
-							<h6>Enter Post content :</h6>
-							<textarea class="form-control" name="post_content"
-								placeholder=" Enter Post Content (between 50 to 200 words)...."
-								style="height: 150px"></textarea>
-						</div>
-						<div class="form-group">
-							<h6>Enter code(if any) :</h6>
-							<textarea class="form-control" name="post_code"
-								placeholder=" Enter here...." style="height: 150px"></textarea>
-						</div>
-						<div class="form-group">
-							<h6>Enter Resource link (if any) :</h6>
-							<input type="text" name="post_link" class="form-control"
-								placeholder="Enter here .......">
-						</div>
-						<div class="form-group">
-							<h6>Select post pic :</h6>
-							<input type="file" name="post_img" class="form-control">
-						</div>
-
-						<div class="container">
-							<button type="submit" id="add_post"
-								class="btn btn-outline-primary">Post</button>
-
-						</div>
-
-
-
-					</form>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Close</button>
-
-					</div>
-
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-
- -->
-
-
-
-
-
-
-
+	
+	
+	
 
 
 
@@ -406,7 +324,7 @@ if (user == null) {
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/js2.js"></script>
+	<script type="text/javascript" src="java_script/js2.js"></script>
 
 
 
@@ -443,7 +361,7 @@ if (user == null) {
 												var user = $(
 														'#exampleInputName')
 														.val();
-												if (user.length<=2 || user.length> = 25) {
+												if (user.length<=2 || user.length>= 25) {
 													$('#nameHelp')
 															.html(
 																	"<b style='color:red'>**Please enter name between 3-25 letters</b>");
@@ -457,22 +375,13 @@ if (user == null) {
 
 												var contact = $('#number')
 														.val();
-												if (contact.length > 10
-														|| contact.length == 1
-														|| contact.length == 2
-														|| contact.length == 3
-														|| contact.length == 4
-														|| contact.length == 5
-														|| contact.length == 6
-														|| contact.length == 7
-														|| contact.length == 8
-														|| contact.length == 9) {
+												if ((((contact.length))) != 10) {
 													$('#contactHelp')
 															.html(
 																	'<b style="color:red">**please enter 10 digit valide number</b>');
 													return false;
 												}
-												if (contact.length == 10) {
+												if ((((contact.length))) == 10) {
 													$('#contactHelp').html("");
 
 												}

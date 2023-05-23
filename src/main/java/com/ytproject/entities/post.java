@@ -11,7 +11,7 @@ public class post {
 	String pCode;
 	String pLink;
 	String pPic;
-	String cId;
+	int cId;
 	int userId;
 	Timestamp pDate;
 	public int getpId() {
@@ -50,10 +50,10 @@ public class post {
 	public void setpPic(String pPic) {
 		this.pPic = pPic;
 	}
-	public String getcId() {
+	public int getcId() {
 		return cId;
 	}
-	public void setcId(String cId) {
+	public void setcId(int cId) {
 		this.cId = cId;
 	}
 	public int getUserId() {
@@ -72,7 +72,7 @@ public class post {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public post(int pId, String pTitle, String pContent, String pCode, String pLink, String pPic, String cId, int userId,
+	public post(int pId, String pTitle, String pContent, String pCode, String pLink, String pPic, int cId, int userId,
 			Timestamp pDate) {
 		super();
 		this.pId = pId;
@@ -85,7 +85,7 @@ public class post {
 		this.userId = userId;
 		this.pDate = pDate;
 	}
-	public post(String pTitle, String pContent, String pCode, String pLink, String pPic, String cId, int userId,
+	public post(String pTitle, String pContent, String pCode, String pLink, String pPic, int cId, int userId,
 			Timestamp pDate) {
 		super();
 		this.pTitle = pTitle;
@@ -98,7 +98,7 @@ public class post {
 		this.pDate = pDate;
 	}
 	
-	public post( String cId,String pTitle, String pContent, String pCode, String pLink,String pPic,int userId ) {
+	public post( int cId,String pTitle, String pContent, String pCode, String pLink,String pPic,int userId ) {
 		//String query = "insert into post (pTitle , pContent , pCode , pLink , pPic) values(?,?,?,?,?)";
 		super();
 		this.pTitle = pTitle;

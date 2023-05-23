@@ -1,4 +1,4 @@
-package com.ytproject.servlet;
+package com.demo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,24 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.ytproject.entities.Message;
 
 /**
- * Servlet implementation class logout_servlet
- * 
+ * Servlet implementation class Demoajax
  */
-
-
-@WebServlet("/logout_servlet")
-public class logout_servlet extends HttpServlet {
+@WebServlet("/Demoajax")
+public class Demoajax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public logout_servlet() {
+    public Demoajax() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +28,11 @@ public class logout_servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	PrintWriter out = response.getWriter();
-	
-		HttpSession s=request.getSession();
-		s.removeAttribute("curentUser");
-		Message m = new Message("Logout Successfully" , "success" , "alert-success pl-5 mt-1");
-		s.setAttribute("msg", m);
-		response.sendRedirect("index.jsp");
-				
-		
-		
+		String data = "Hello world";
+	    request.setAttribute("data", data);
+	    PrintWriter out=response.getWriter();
+	    out.print("demo");
+	    
 	}
 
 	/**

@@ -5,11 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-//import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 
 import org.apache.coyote.http11.Http11AprProtocol;
 import org.apache.jasper.tagplugins.jstl.core.Out;
 
+import com.mysql.cj.Session;
+import com.ytproject.entities.Message;
 import com.ytproject.entities.User;
 import com.ytproject.entities.post;
 
@@ -124,7 +126,7 @@ public class UserDao {
 			String query = "insert into post (cId,pTitle , pContent , pCode , pLink , pPic,userId ) values(?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = this.con.prepareStatement(query);
 			// set data
-			pstmt.setString(1, p.getcId());
+			pstmt.setInt(1, p.getcId());
 			pstmt.setString(2, p.getpTitle());
 			pstmt.setString(3, p.getpContent());
 			pstmt.setString(4, p.getpCode());
@@ -132,15 +134,18 @@ public class UserDao {
 			pstmt.setString(6, p.getpPic());
 			pstmt.setInt(7, p.getUserId());
 
-			pstmt.executeUpdate();
-
+			
+			int a= pstmt.executeUpdate();
+System.out.println("this is a"+a);
 			f = true;
 			System.out.println("post saving in user Dio");
-
+			
 		} catch (Exception e) {
-			// TODO: handle exception
-
+			f=false;
 			e.printStackTrace();
+			
+			
+			
 		}
 		return f;
 

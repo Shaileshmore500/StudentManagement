@@ -47,7 +47,7 @@ public class add_post extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print("in add-post servlet");
 
-		String p_category = request.getParameter("cat_name");
+		int p_category = Integer.parseInt(request.getParameter("cat_name"));
 		String p_title = request.getParameter("post_title");
 		String p_content = request.getParameter("post_content");
 		String p_code = request.getParameter("post_code");
@@ -55,6 +55,8 @@ public class add_post extends HttpServlet {
 
 		Part part = request.getPart("post_img");
 		String post_image = part.getSubmittedFileName();
+		
+		System.out.println("post_image"+post_image);
 
 		HttpSession s = request.getSession();
 		User u = (User) s.getAttribute("curentUser");
@@ -69,10 +71,12 @@ public class add_post extends HttpServlet {
 
 			System.out.println("in add_post");
 
+			if(post_image.length()>0)
+			{
 			String img_path = request.getSession().getServletContext().getRealPath("/") + "pic" + File.separator
 					+ post_image;
 			delete_save_profile_image.save_img(part.getInputStream(), img_path);
-
+			}
 			Message m = new Message("Post Added Sucessfully", "error", "alert-success bg-#246d66 pl-1 mt-1");
 
 			HttpSession ss = request.getSession();
@@ -81,7 +85,11 @@ public class add_post extends HttpServlet {
 		} else
 
 		{
-			response.sendRedirect("login.jsp");
+			Message m = new Message("Something Went Wrong!Please Try Again....", "error", "alert-danger bg-#246d66 pl-1 mt-1");
+
+			HttpSession ss = request.getSession();
+			ss.setAttribute("msg", m);
+			response.sendRedirect("addpost.jsp");
 		}
 
 	}

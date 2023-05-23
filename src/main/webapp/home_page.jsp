@@ -1,4 +1,13 @@
+<%@page import="com.ytproject.entities.Message"%>
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
 
+<%@page import="java.sql.DriverManager"%>
+<%@page import="com.mysql.cj.jdbc.Driver"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +20,9 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/NewFile.css">
+<link rel="stylesheet" href="css_files/NewFile.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
 <style>
 body {
@@ -51,14 +62,23 @@ body {
 }
 
 .card {
+	height: 515px;
 	margin-left: 40px;
 	width: 300px !important;
 	margin-right: 40px;
+	border-color: #246d66;
 }
 
 .content_text {
 	max-height: 200px;
 	overflow-y: auto;
+}
+
+.footer_card {
+	padding: 0.75rem 1.25rem;
+	background-color: rgba(0, 0, 0, .03);
+	border-top: 1px solid rgba(0, 0, 0, .125);
+	margin-top: 40px;
 }
 
 .all_post {
@@ -76,6 +96,38 @@ body {
 	margin-left: -15px;
 	margin-right: 45px;
 }
+
+.card-img-top {
+	height: 300px;
+}
+
+.temp_footer {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-radius: 5px;
+}
+
+.temp_footer a {
+	float: right;
+	margin: 0px 2px 0px 2px;
+}
+.msg-body {
+	position: fixed;
+	height: 45px;
+	bottom: 59px;
+	left: 21px;
+	padding: 10px;
+	width: 100%;
+}
+.msg{
+	    padding: 15px;
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: 30%;
+    max-width: 40%;
+    font-size: inherit;
+    border-radius: 9px;
+}
 </style>
 
 
@@ -84,6 +136,8 @@ body {
 <body>
 	<!-- nave bar -->
 	<%@include file="normal_navbar.jsp"%>
+
+
 
 
 
@@ -102,8 +156,7 @@ body {
 					operations to perform) while other languages use the declarative
 					form (i.e. the desired result is specified, not how to achieve it).</p>
 
-				<a href="login_page.jsp"><button
-						class="btn btn-outline-light btn-lg">
+				<a href="index.jsp"><button class="btn btn-outline-light btn-lg">
 						<span class="fa fa-user-circle-o fa-spin"></span> LOGIN
 					</button>&nbsp&nbsp&nbsp&nbsp</a> <a href="register_page.jsp"><button
 						class="btn btn-outline-light btn-lg">
@@ -117,14 +170,20 @@ body {
 	<div class="container">
 		<div class="row" style="margin-top: 0px">
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
+						<div class="card-footer footer_card">
+							<span> <a href="#" class="btn btn-primary">Apply</a> <a
+								href="#" class="btn btn-primary"> <i class="fa fa-file">&nbsp</i>
+									Read More
+							</a>
+							</span>
+
+						</div>
 					</div>
 
 
@@ -132,29 +191,32 @@ body {
 			</div>
 
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's contentSome quick example text to build on the card title and make up the bulk of the card's content..</p>
-						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
-					</div>
+							card title and make up the bulk of the card's content</p>
 
+
+					</div>
+					<div class="temp_footer">
+						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
+							class="btn btn-primary"> Read More</a>
+					</div>
 
 				</div>
 			</div>
 
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
+							class="btn btn-primary"> Read More</a>
 					</div>
 
 
@@ -162,21 +224,30 @@ body {
 			</div>
 		</div>
 	</div>
-	
+	<div>
+		<div class="post_pnl_header">
+			<span class="card-title">Post</span> <span
+				class="glyphicon glyphicon-plus"></span>
+
+		</div>
+		<div>
+			<%@include file="post.jsp"%>
+		</div>
+	</div>
 	<hr class="hr">
 
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
+							class="btn btn-primary"> Read More</a>
 					</div>
 
 
@@ -184,14 +255,14 @@ body {
 			</div>
 
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
+							class="btn btn-primary"> Read More</a>
 					</div>
 
 
@@ -199,14 +270,14 @@ body {
 			</div>
 
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
+							class="btn btn-primary"> Read More</a>
 					</div>
 
 
@@ -218,14 +289,14 @@ body {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
+							class="btn btn-primary"> Read More</a>
 					</div>
 
 
@@ -233,14 +304,14 @@ body {
 			</div>
 
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
+							class="btn btn-primary"> Read More</a>
 					</div>
 
 
@@ -248,14 +319,14 @@ body {
 			</div>
 
 			<div class="col-md-4">
-				<div class="card" style="border-color: #246d66;">
+				<div class="card">
 					<img class="card-img-top" src="pic/java.jpg" alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title">Java Developer</h5>
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<a href="#" class="btn btn-primary">Apply</a> <a href="#"
-							class="btn btn-primary">Reed More</a>
+							class="btn btn-primary"> Read More</a>
 					</div>
 
 
@@ -263,6 +334,16 @@ body {
 			</div>
 		</div>
 	</div>
+
+
+	<div class="msg-body">
+		<div class="alert-danger msg">Something went wrong.Please Try
+			Again..
+			
+			<div id="bar" style="background-color: rgb(24, 23, 22); position: absolute; padding: 2px; width: 97%; bottom: 2px; left: 5px; display: none;"></div>
+			</div>
+	</div>
+
 
 
 
@@ -280,6 +361,6 @@ body {
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/js2.js"></script>
+	<script type="text/javascript" src="java_script/js2.js"></script>
 </body>
 </html>

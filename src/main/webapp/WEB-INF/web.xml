@@ -5,8 +5,11 @@
 		xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 		id="WebApp_ID" version="4.0">
 
+		<display-name>Login</display-name>
+		<welcome-file-list>
+			<welcome-file>index.jsp</welcome-file>
 
-		
+		</welcome-file-list>
 
 
 		<servlet>
@@ -45,17 +48,43 @@
 			<servlet-name>edit</servlet-name>
 			<url-pattern>/edit_servlet</url-pattern>
 		</servlet-mapping>
-		
-		<servlet>
-		<servlet-name>add_post</servlet-name>
-		<servlet-class>com.ytproject.servlet.add_post</servlet-class>
-		</servlet>
-		
-		<servlet-mapping>
-		<servlet-name>add_post</servlet-name>
-		<url-pattern>/add_post</url-pattern>
-		</servlet-mapping>
 
+		<servlet>
+			<servlet-name>add_post</servlet-name>
+			<servlet-class>com.ytproject.servlet.add_post</servlet-class>
+		</servlet>
+
+		<servlet-mapping>
+			<servlet-name>add_post</servlet-name>
+			<url-pattern>/add_post</url-pattern>
+		</servlet-mapping>
+		<servlet>
+			<servlet-name>addcategory</servlet-name>
+			<servlet-class>com.ytproject.servlet.addcategory</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>addcategory</servlet-name>
+			<url-pattern>/addcategory</url-pattern>
+
+		</servlet-mapping>
+		<servlet>
+			<servlet-name>likeservlet</servlet-name>
+			<servlet-class>com.ytproject.servlet.like_servlet</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>likeservlet</servlet-name>
+			<url-pattern>/like_servlet</url-pattern>
+		</servlet-mapping>
+		<servlet>
+
+			<servlet-name>chatroom</servlet-name>
+			<servlet-class>com.ytproject.servlet.ChatRoom</servlet-class>
+
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>chatroom</servlet-name>
+			<url-pattern>/ChatRoom</url-pattern>
+		</servlet-mapping>
 
 
 
