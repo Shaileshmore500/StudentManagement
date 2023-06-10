@@ -75,13 +75,28 @@ if (chat_user == null) {
 .member-details {
 	margin-left: 15px
 }
+.dim1
+{height: 98% !important;
+    overflow: hidden !important;
+    position: fixed !important;
+    
+
+}
+.dim2
+{
+height: 503px !important;
+    scroll-behavior: smooth !important;
+    overflow-y: scroll !important;
+    
+padding-bottom:40px;
+}
 </style>
 </head>
 <body>
 
 
 	<!-- modal fade-->
-	<div class=" modal fade" id="ChatRoom-model" tabindex="-1"
+	<div class=" modal fade dim1" id="ChatRoom-model" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
 
@@ -99,10 +114,9 @@ if (chat_user == null) {
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="chat-member" id="chat-member">
+				<div class="chat-member dim2" id="chat-member">
 					<%
 					String sql = "select id,name,email,profile_image,contact from user_inf where id!=" + userid;
-					
 
 					/*
 					Connection chat_con=ConnectionProvider.getConnection();
@@ -160,7 +174,7 @@ if (chat_user == null) {
 								<i class="zmdi zmdi-phone"></i>
 							</div>
 						</div>
-						<div class="conversation">
+						<div class="conversation dim2">
 							<div class="conversation-container" id="conversation-container">
 
 								<img src='pic/java.jpg'>
@@ -290,6 +304,8 @@ if (chat_user == null) {
 	
 			
 		var receiverID=0;
+		var livechat='';
+		var lastactime='';
 		function openchat(id, name, img, contact) {
 			debugger;
 			  receiverID = id;
@@ -322,6 +338,8 @@ if (chat_user == null) {
 					$("#receiverimg").attr("src", "pic/" + img);
 					$("#receivernumber").html(
 							"<i class='fas fa-mobile-alt' ></i>  " + contact);
+					
+					livechat=setInterval(getLiveChat,1000,<%=userid%>,receiverID);
 
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -332,16 +350,20 @@ if (chat_user == null) {
 			});
 		}
 		function closemodel() {
+			
 			$("#chat-member").show();
 			$("#chat").hide();
-
+			clearInterval(livechat);
 		}
 		$("#back").click(function() {
 			$("#chat-member").show();
 			$("#chat").hide();
+			clearInterval(livechat);
 
 		});
 		$("#btn_send").click(function() {
+			if($("#textAreaExample").val()=='')
+				return;
 			const dd = {
 					rid : receiverID,
 					sid :<%=userid%>,
@@ -350,22 +372,25 @@ if (chat_user == null) {
 			
 
 				}
-			$.ajax({
-				
-				
-				
-				
-
+			$.ajax({	
 				url : "ChatRoom",
 				data : dd,
 				method : 'POST',
 				success : function(data, textStatus, jqXHR) {
 
-					console.log(data);
-
-					$("#conversation-container:last-child").append("<div class='message sent'>"+$("#textAreaExample").val()+ "<span class='metadata'> <span class='time'>"+getTime(new Date())+"</span></span></div>");
+					var a=new Date();
+					var month=parseInt(a.getMonth()+1)<10?"0"+parseInt(a.getMonth()+1):parseInt(a.getMonth()+1);
+					var date=parseInt(a.getDate())<10?"0"+a.getDate():a.getDate();
+					var h=parseInt(a.getHours())<10?'0'+a.getHours():a.getHours();
+					var m=parseInt(a.getMinutes())<10?'0'+a.getMinutes():a.getMinutes();
+					var s=parseInt(a.getSeconds())<10?'0'+a.getSeconds():a.getSeconds()
+							var timestamp=a.getFullYear()+'-'+month+'-'+date+' '+h+':'+m+':'+s;
+					//var timestamp=a.getFullYear()+"-"+(parseInt(a.getMonth()+1) < 10 ? month : a.getMonth()+1)+'-'+a.getDay()>10?date:a.getDay() +' '+a.getHours()+':'+a.getMinutes()+':'+ a.getSeconds()
+						//var timestamp=a.getFullYear()+"-"+month+'-'+date +' '+parseInt(a.getHours())<10?+'0'+a.getHours():a.getHours()+':'+parseInt(a.getMinutes())<10?+'0'+a.getMinutes():a.getMinutes()+':'+ parseInt(a.getSeconds())<10?+'0'+a.getSeconds():a.getSeconds();
+					$("#conversation-container:last-child").append("<div class='message sent'>"+$("#textAreaExample").val()+ "<span class='metadata'> <span class='time'>"+getTime(new Date())+"</span></span><span class='actime' style='display:none'>"+timestamp+"</span></div>");
 					$('#textAreaExample').val('')
-					
+					livechat=setInterval(getLiveChat,1000,<%=userid%>,receiverID);
+
 
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -386,6 +411,43 @@ if (chat_user == null) {
 			return h+':'+m+' '+t;
 			
 			
+		}
+		function getLiveChat(senderid,recid) {
+			var actime=$("#conversation-container div:last-child .actime").html();
+			actime=actime.replace('.',':');
+			/*if(lastactime!=actime)
+				{*/
+				lastactime=actime
+				
+			const data={
+					rid : recid,
+					sid :senderid,
+					time:actime,
+					operation:'getlivechat'						
+			};
+			$.ajax({	
+				url : "ChatRoom",
+				data : data,
+				method : 'POST',
+				success : function(data, textStatus, jqXHR) {
+
+					console.log(data);
+					if(data != null && data != "")
+						{
+										$("#conversation-container:last-child").append(data);
+						}
+					
+
+					
+					//a.getFullYear()+"-"+(a.getMonth()+1)+'-'+a.getDay() +' '+a.getHours()+':'+a.getMinutes()+':'+ a.getMilliseconds()
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR);
+
+				}
+
+			});
+				//}
 		}
 	
 	</script>

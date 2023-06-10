@@ -128,6 +128,9 @@ body {
     font-size: inherit;
     border-radius: 9px;
 }
+.coursebtn{
+float: right;
+}
 </style>
 
 
@@ -177,7 +180,7 @@ body {
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<div class="card-footer footer_card">
-							<span> <a href="#" class="btn btn-primary">Apply</a> <a
+							<span class="coursebtn"> <a href="#" class="btn btn-primary">Apply</a> <a
 								href="#" class="btn btn-primary"> <i class="fa fa-file">&nbsp</i>
 									Read More
 							</a>

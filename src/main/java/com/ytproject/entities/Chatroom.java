@@ -6,7 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
-public class Chatroom {
+import lombok.Data;
+
+
+public  class Chatroom {
 
 	public String description;
 	public int senderid;

@@ -15,68 +15,91 @@
 <link rel="stylesheet" href="css_files/NewFile.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style type="text/css">
-
-.post_div
-{
-display: flex;
-}
-.jumbotron {
-    padding: 10px 10px !important;
-    }
-@media (min-width: 576px)
-.jumbotron {
-    padding: 14px;
-}@media (min-width: 1200px)
-.container {
-    max-width: 1018px;
+.post_div {
+	display: flex;
 }
 
+.jumbotron {
+	padding: 10px 10px !important;
+}
 
+@media ( min-width : 576px) .jumbotron {
+	padding
+	:
+	 
+	14px
+	;
+	
+
+}
+
+@media ( min-width : 1200px) .container {
+	max-width
+	:
+	 
+	1018px
+	;
+	
+
+}
 </style>
 </head>
 <body>
 	<%@include file="normal_navbar.jsp"%>
+
+
+	<div>
+		<select id="select_course">
+			<option>--Please Select--</option>
+			<%
+			String courseSql="select * from tbl_course";
+			ResultSet courseset=new Dao(ConnectionProvider.getConnection()).getData(courseSql);
+			while(courseset.next())
+			{
+			
+			%>
+			<option value="<%=courseset.getInt("coursepid") %>"><%=courseset.getString("name") %></option>
+			<%} %>
+		
+
+
+		</select>
+		
 	
-	
-<div>
-<select >
-<option>course</option>
-<option>course</option>
-<option>course</option>
-<option>course</option>
 
 
-</select>
-
-<input type="text" id="select_course">
-</div>
-
-	<div style="margin-top: 1%; ">
+	</div>
+<%
+			 courseSql="select * from tbl_course";
+			 courseset=new Dao(ConnectionProvider.getConnection()).getData(courseSql);
+			while(courseset.next())
+			{
+			
+			%>
+			
+			
+	<div style="margin-top: 1%;">
 		<div class="jumbotron primary-background text-white post_div">
-			<div>	
-			<img src="pic/java.jpg" style="width: 300px;">
+			<div>
+				<img src="pic/<%=courseset.getString("thumbimg") %>" style="width: 300px;">
 			</div>
-			<div class="container" style="margin: 8px;"s>
-				<h3 class="display-3">Wellcome to Zep-Tech</h3>
-				<p>A programming language is a formal language comprising a set
-					of strings that produce various kinds of machine code output.
-					Programming languages are one kind of computer language, and are
-					used in computer programming to implement algorithms.</p>
-				<p>Thousands of different programming languages have been
-					created, and more are being created every year. Many programming
-					languages are written in an imperative form (i.e., as a sequence of
-					operations to perform) while other languages use the declarative
-					form (i.e. the desired result is specified, not how to achieve it).</p>
+			<div class="container" style="margin: 8px;" s>
+				<h3 class="display-3"><%=courseset.getString("name")%></h3>
+				<p><%=courseset.getString("description1")%></p>
+				<p><%=courseset.getString("description2")==null?"":courseset.getString("description2")%></p>
 
-				<a href="index.jsp"><button class="btn btn-outline-light btn-lg">
+				<a href="applyForm.jsp?course=123"><button class="btn btn-outline-light btn-lg">
 						<span class="fa fa-user-circle-o fa-spin"></span> Apply
-					</button>&nbsp&nbsp&nbsp&nbsp</a> 
+					</button>&nbsp&nbsp&nbsp&nbsp</a>
+					<a href="enquiryForm.jsp"><button class="btn btn-outline-light btn-lg">
+						<span class="fa fa-user-circle-o fa-spin"></span> Enquiry
+					</button>&nbsp&nbsp&nbsp&nbsp</a>
 
 			</div>
 		</div>
 	</div>
 
-
+<%} %>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script
@@ -89,18 +112,21 @@ display: flex;
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" src="java_script/js2.js"></script>
 	<script type="text/javascript">
-	
-	$(document).ready(function() {
-		
-		change();
-		$('#select_course').change(function change() {
-		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+		$(document).ready(function() {
+
+			
+			$('#select_course').change(function() {
+
+	debugger;
+	var selectedOption = $(this).val();
+    console.log(selectedOption);
+				
+			
+
+			})
+
 		})
-		
-		
-	})
-	
 	</script>
-	
+
 </body>
 </html>
